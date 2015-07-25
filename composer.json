@@ -1,0 +1,37 @@
+{
+    "name": "gollumsf/libsass",
+    "type": "library",
+    "description": "Add libsabb filter for AsseticBundle",
+    "keywords": [
+        "libsass",
+        "assetic",
+        "filter",
+        "gollumsf",
+        "nodejs"
+    ],
+    "homepage": "https://github.com/GollumSF/libsass-bundle",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Damien Duboeuf",
+            "email": "damien.duboeuf@gmail.com"
+        }
+    ],
+    "support": {
+        "email": "damien.duboeuf@gmail.com",
+        "wiki": "https://github.com/GollumSF/libsass-bundle/wiki"
+    },
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+    },
+    "suggest": {
+    },
+    "autoload": {
+        "psr-0": { "GollumSF\\": "libsass-bundle/libsass-bundle/GollumSF/" }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}

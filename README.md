@@ -2,7 +2,7 @@
 Add libsabb filter for AsseticBundle
 
 
-##For composer ;
+##For composer :
 
 <pre>
 {

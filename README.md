@@ -4,7 +4,7 @@ Add libsabb filter for AsseticBundle
 
 ##For composer ;
 
-<code>
+<pre>
 {
 	"require" : {
 		"gollumsf/libsass" : "1.0.0"
@@ -34,4 +34,4 @@ Add libsabb filter for AsseticBundle
 		}
 	]
 }
-</code>
+</pre>

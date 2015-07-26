@@ -15,8 +15,8 @@ use Assetic\Util\CssUtils;
  */
 class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInterface {
 	
-	private $compassPath;
-	private $rubyPath;
+	private $nodeSassPath;
+	private $nodeBin;
 	private $scss;
 	
 	// sass options
@@ -46,9 +46,9 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 	private $httpJavascriptsPath;
 	private $homeEnv = true;
 
-	public function __construct($compassPath = '/usr/bin/compass', $rubyPath = null) {
-		$this->compassPath = $compassPath;
-		$this->rubyPath = $rubyPath;
+	public function __construct($nodeSassPath = '/usr/bin/node-sass', $nodeBin = null) {
+		$this->nodeSassPath = $nodeSassPath;
+		$this->nodeBin = $nodeBin;
 		$this->cacheLocation = sys_get_temp_dir ();
 		
 		if ('cli' !== php_sapi_name ()) {
@@ -180,33 +180,68 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
     }
 
 	public function filterLoad(AssetInterface $asset) {
+		$root = $asset->getSourceRoot ();
+		$path = $asset->getSourcePath ();
 		
-		$this->rubyPath = "/usr/bin/node";
-		
-		$this->compassPath = "/home/glowbl/nodejs/node-sass/bin/node-sass";
-		
-		$root = $asset->getSourceRoot();
-		$path = $asset->getSourcePath();
+		error_reporting(E_ALL);
+		ini_set("display_errors", 1);
 		
 		$loadPaths = $this->loadPaths;
 		if ($root && $path) {
-			$loadPaths[] = dirname($root.'/'.$path);
+			$loadPaths [] = realpath ( dirname ( $root . '/' . $path ) );
 		}
+		$loadPaths [] = realpath ( __DIR__ . "/../../Resources/compass/compass-mixins/lib/" );
+		$loadPaths [] = realpath ( __DIR__."/../../Resources/compass/include/");
 		
 		$tempDir = realpath(sys_get_temp_dir());
 		
-		$compassProcessArgs = array(
-			$this->compassPath,
-		);
-		if (null !== $this->rubyPath) {
-			$compassProcessArgs = array_merge(explode(' ', $this->rubyPath), $compassProcessArgs);
+		$compassProcessArgs = [
+			$this->nodeSassPath,
+		];
+		if (null !== $this->nodeBin) {
+			$compassProcessArgs = array_merge(explode(' ', $this->nodeBin), $compassProcessArgs);
 		}
 		
-		var_dump ($loadPaths);
-		exit();
+		foreach ($loadPaths as $includePath) {
+			$compassProcessArgs[] = "--include-path";
+			$compassProcessArgs[] = $includePath;
+		}
+		
+		$compassProcessArgs[] = "--output-style";
+		$compassProcessArgs[] = "expanded";
+		
+		$compassProcessArgs[] = $asset->getSourceRoot ()."/".$asset->getSourcePath();
+		
+		$tempName = tempnam($tempDir, 'assetic_libsass');
+		@unlink($tempName);
+		
+		$compassProcessArgs[] = $tempName;
 		
 		$pb = $this->createProcessBuilder($compassProcessArgs);
+		
+		if ($this->homeEnv) {
+			// it's not really usefull but... https://github.com/chriseppstein/compass/issues/376
+			$pb->setEnv('HOME', sys_get_temp_dir());
+			$this->mergeEnv($pb);
+		}
+		
+		$proc = $pb->getProcess ();
+		$code = $proc->run ();
+		
+		if (0 !== $code) {
+			@unlink ($tempName);
+			throw FilterException::fromProcess ($proc)->setInput ($asset->getSourceRoot ()."/".$asset->getSourcePath());
+		}
+		
+		$content = file_get_contents($tempName);
 
+		$content = str_replace("___COMPASS_HTTP_PATH___", $this->httpPath, $content);
+		$content = str_replace("___COMPASS_IMAGES_DIR___", $this->imagesDir, $content);
+		$content = str_replace("___COMPASS_FONT_DIR___", $this->fontsDir, $content);
+
+		@unlink ($tempName);
+		$asset->setContent($content);
+		
 //         if ($this->force) {
 //             $pb->add('--force');
 //         }
@@ -333,8 +368,6 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 // 			$this->mergeEnv($pb);
 // 		}
 		
-		var_dump ($pb);
-		exit();
 
 //         $proc = $pb->getProcess();
 //         $code = $proc->run();
@@ -348,13 +381,13 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 //             throw FilterException::fromProcess($proc)->setInput($asset->getContent());
 //         }
 
-        $asset->setContent(file_get_contents($output));
+//         $asset->setContent(file_get_contents($output));
 
-        unlink($input);
-        unlink($output);
-        if (isset($configFile)) {
-            unlink($configFile);
-        }
+//         unlink($input);
+//         unlink($output);
+//         if (isset($configFile)) {
+//             unlink($configFile);
+//         }
     }
 
     public function filterDump(AssetInterface $asset)
@@ -365,26 +398,6 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
     {
         // todo
         return array();
-    }
-
-    private function formatArrayToRuby($array)
-    {
-        $output = array();
-
-        // does we have an associative array ?
-        if (count(array_filter(array_keys($array), "is_numeric")) != count($array)) {
-            foreach ($array as $name => $value) {
-                $output[] = sprintf('    :%s => "%s"', $name, addcslashes($value, '\\'));
-            }
-            $output = "{\n".implode(",\n", $output)."\n}";
-        } else {
-            foreach ($array as $name => $value) {
-                $output[] = sprintf('    "%s"', addcslashes($value, '\\'));
-            }
-            $output = "[\n".implode(",\n", $output)."\n]";
-        }
-
-        return $output;
     }
 	
 // 	const STYLE_NESTED = 'nested';

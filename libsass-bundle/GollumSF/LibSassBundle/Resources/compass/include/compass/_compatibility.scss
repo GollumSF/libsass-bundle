@@ -1,0 +1,24 @@
+
+@function image-url ($path) {
+	@return url('___COMPASS_HTTP_PATH___/___COMPASS_IMAGES_DIR___/#{$path}');
+}
+
+@function font-url ($path) {
+	@return url('___COMPASS_HTTP_PATH___/___COMPASS_FONT_DIR___/#{$path}');
+}
+
+@function compact($vars...) {
+	$first: nth($vars, 1);
+	$sep: comma;
+	$list: ();
+	@if length($vars) == 1 and type_of($first) == 'list' {
+		$vars: $first;
+		$sep: list-separator($vars);
+	}
+	@each $var in $vars {
+		@if $var {
+			$list: append($list, $var, $sep);
+		}
+	}
+	@return $list;
+}

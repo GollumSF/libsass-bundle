@@ -4,7 +4,8 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="assetic.filter.nodesass.bin">/usr/bin/compass</parameter>
+        <parameter key="assetic.node.bin">/usr/bin/node</parameter>
+        <parameter key="assetic.filter.nodesass.bin">/usr/bin/node-sass</parameter>
         <parameter key="assetic.filter.nodesass.timeout">null</parameter>
         <parameter key="assetic.filter.nodesass.debug">false</parameter>
         <parameter key="assetic.filter.nodesass.no_line_comments">false</parameter>
@@ -38,7 +39,7 @@
 <!--             <call method="setLoadPaths"><argument>%assetic.filter.nodesass.load_paths%</argument></call> -->
             
             <argument>%assetic.filter.nodesass.bin%</argument>
-            <argument>%assetic.ruby.bin%</argument>
+            <argument>%assetic.node.bin%</argument>
             <call method="setTimeout"><argument>%assetic.filter.nodesass.timeout%</argument></call>
             <call method="setDebugInfo"><argument>%assetic.filter.nodesass.debug%</argument></call>
             <call method="setNoLineComments"><argument>%assetic.filter.nodesass.no_line_comments%</argument></call>

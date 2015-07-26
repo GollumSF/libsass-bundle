@@ -17,7 +17,6 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 	
 	private $nodeSassPath;
 	private $nodeBin;
-	private $scss;
 	
 	// sass options
 	private $unixNewlines;
@@ -56,10 +55,6 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 		}
 	}
 
-    public function setScss($scss)
-    {
-        $this->scss = $scss;
-    }
 
     // sass options setters
     public function setUnixNewlines($unixNewlines)
@@ -87,11 +82,9 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
     {
         $this->force = $force;
     }
-
-    public function setStyle($style)
-    {
-        $this->style = $style;
-    }
+	public function setStyle($style) {
+		$this->style = $style;
+	}
 
     public function setQuiet($quiet)
     {
@@ -207,8 +200,10 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 			$compassProcessArgs[] = $includePath;
 		}
 		
-		$compassProcessArgs[] = "--output-style";
-		$compassProcessArgs[] = "expanded";
+		if ($this->style) {
+			$compassProcessArgs[] = "--output-style";
+			$compassProcessArgs[] = $this->style;
+		}
 		
 		$compassProcessArgs[] = $asset->getSourceRoot ()."/".$asset->getSourcePath();
 		
@@ -406,7 +401,6 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 // 	const STYLE_COMPRESSED = 'compressed';
 	
 // 	private $sassPath;
-// 	private $scss;
 // 	private $style;
 // 	private $quiet;
 // 	private $cacheLocation;
@@ -414,10 +408,6 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 // 	public function __construct($sassPath = '/usr/bin/node-sass') {
 // 		$this->sassPath = $sassPath;
 // 		$this->cacheLocation = realpath ( sys_get_temp_dir () );
-// 	}
-	
-// 	public function setScss($scss) {
-// 		$this->scss = $scss;
 // 	}
 	
 // 	public function setStyle($style) {

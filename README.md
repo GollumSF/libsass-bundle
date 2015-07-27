@@ -1,5 +1,5 @@
 # libsass-bundle
-Add libsabb filter for AsseticBundle
+Add libsabb filter for AsseticBundle into Symfony2
 
 
 ##For composer :
@@ -15,11 +15,12 @@ Add libsabb filter for AsseticBundle
 			"GollumSF" : "vendor/gollumsf/libsass/libsass-bundle"
 		}
 	},
+	
 	"repositories" : [{
 			"type" : "package",
 			"package" : {
-				"name" : "GollumSF/libsass-bundle",
-				"version" : "master",
+				"name" : "gollumsf/libsass",
+				"version" : "1.0.0",
 				"autoload" : {
 					"psr-0" : {
 						"GollumSF" : "vendor/gollumsf/libsass/libsass-bundle"

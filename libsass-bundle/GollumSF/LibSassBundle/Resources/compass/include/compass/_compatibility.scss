@@ -4,7 +4,7 @@
 }
 
 @function font-url ($path) {
-	@return url('___COMPASS_HTTP_PATH______COMPASS_FONT_DIR___#{$path}');
+	@return url('___COMPASS_HTTP_PATH______COMPASS_FONTS_DIR___#{$path}');
 }
 
 @function compact($vars...) {

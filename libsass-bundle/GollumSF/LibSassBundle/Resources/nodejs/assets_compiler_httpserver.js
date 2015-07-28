@@ -1,19 +1,41 @@
 
 var fs = require('fs');
-var sass = require('../node-sass/lib/index.js');
 
-var outputStyle  = "expanded";
-var rootPath     = "/home/dduboeuf/Works/Glowbl/git/Glowbl_portal";
-var bundlePath   = rootPath+"/vendor/gollumsf/libsass/libsass-bundle/GollumSF/LibSassBundle";
-var includePaths = [
-	rootPath+"/src/Glowbl/CommonBundle/Resources/public/css/"
-];
+var options = {
+	includePaths: []
+};
+var key = null;
+for (var i = 0; i < process.argv.length; i++) {
+	var arg = process.argv[i];
+	if (key) {
+		if (options[key]) {
+			options[key].push (arg);
+		} else {
+			options[key] = arg;
+		}
+		key = null;
+	} else {
+		if (arg.substr(0, 2) == "--") {
+			key = arg.substr(2);
+		}
+	}
+}
 
-var ___COMPASS_HTTP_PATH___  = "//www.devglowbl.com/web";
-var ___COMPASS_FONT_DIR___   = "fonts";
-var ___COMPASS_IMAGES_DIR___ = "images";
+console.log ("options: ", options);
+
+var port         = options["port"]         || 8989;
+var outputStyle  = options["outputStyle"]  || "expanded";
+var rootPath     = options["rootPath"]     || "./";
+var bundlePath   = options["bundlePath"]   || "vendor/gollumsf/libsass/libsass-bundle/GollumSF/LibSassBundle";
+var includePaths = options["includePaths"] || [];
+var nodeSassPath = options["nodeSassPath"] || __dirname+"/../../../../../node-sass";
+
+var ___COMPASS_HTTP_PATH___  = options["http_path"]  || null;
+var ___COMPASS_FONTS_DIR___  = options["fonts_dir"]  || null;
+var ___COMPASS_IMAGES_DIR___ = options["images_dir"] || null;
 
 var http = require('http');
+var sass = require(nodeSassPath+'/lib/index.js');
 
 http.createServer(function (req, res) {
 	
@@ -62,8 +84,8 @@ http.createServer(function (req, res) {
 			res.writeHead(200, {'Content-Type': 'text/css'});
 			
 			content = result.css.toString();
-			content = content.replace(new RegExp('___COMPASS_HTTP_PATH___', 'g') , ___COMPASS_HTTP_PATH___  ? ___COMPASS_HTTP_PATH___ +'/' : '');
-			content = content.replace(new RegExp('___COMPASS_FONT_DIR___', 'g')  , ___COMPASS_FONT_DIR___   ? ___COMPASS_FONT_DIR___  +'/' : '');
+			content = content.replace(new RegExp('___COMPASS_HTTP_PATH___' , 'g'), ___COMPASS_HTTP_PATH___  ? ___COMPASS_HTTP_PATH___ +'/' : '');
+			content = content.replace(new RegExp('___COMPASS_FONTS_DIR___' , 'g'), ___COMPASS_FONTS_DIR___  ? ___COMPASS_FONTS_DIR___ +'/' : '');
 			content = content.replace(new RegExp('___COMPASS_IMAGES_DIR___', 'g'), ___COMPASS_IMAGES_DIR___ ? ___COMPASS_IMAGES_DIR___+'/' : '');
 			
 			res.write (content);
@@ -71,4 +93,4 @@ http.createServer(function (req, res) {
 		res.end();
 	});
 	
-}).listen(9999);
+}).listen(port);

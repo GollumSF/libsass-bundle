@@ -6,10 +6,12 @@
     <parameters>
         <parameter key="assetic.node.bin">/usr/bin/node</parameter>
         <parameter key="assetic.nodesass.bin">%kernel.root_dir%/../vendor/gollumsf/libsass/node-sass/bin/node-sass</parameter>
+        <parameter key="assetic.nodesass.compiler.host">127.0.0.1</parameter>
+        <parameter key="assetic.nodesass.compiler.port">8989</parameter>
         <parameter key="assetic.filter.nodesass.timeout">null</parameter>
         <parameter key="assetic.filter.nodesass.debug">false</parameter>
         <parameter key="assetic.filter.nodesass.no_line_comments">false</parameter>
-        <parameter key="assetic.filter.nodesass.style">null</parameter>
+        <parameter key="assetic.filter.nodesass.style">expanded</parameter>
         <parameter key="assetic.filter.nodesass.images_dir">fonts</parameter>
         <parameter key="assetic.filter.nodesass.fonts_dir">images</parameter>
         <parameter key="assetic.filter.nodesass.javascripts_dir">null</parameter>

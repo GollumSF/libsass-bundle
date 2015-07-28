@@ -235,7 +235,7 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 		
 		$content = str_replace("___COMPASS_HTTP_PATH___" , $this->httpPath ? rtrim($this->httpPath, '/') ."/" : "", $content);
 		$content = str_replace("___COMPASS_IMAGES_DIR___", $this->httpPath ? rtrim($this->imagesDir, '/')."/" : "", $content);
-		$content = str_replace("___COMPASS_FONT_DIR___"  , $this->fontsDir ? rtrim($this->fontsDir, '/') ."/" : "", $content);
+		$content = str_replace("___COMPASS_FONTS_DIR___" , $this->fontsDir ? rtrim($this->fontsDir, '/') ."/" : "", $content);
 		
 		@unlink ($tempName);
 		$asset->setContent($content);

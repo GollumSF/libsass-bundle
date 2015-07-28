@@ -5,7 +5,7 @@
 
     <parameters>
         <parameter key="assetic.node.bin">/usr/bin/node</parameter>
-        <parameter key="assetic.filter.nodesass.bin">/usr/bin/node-sass</parameter>
+        <parameter key="assetic.nodesass.bin">%kernel.root_dir%/../vendor/gollumsf/libsass/node-sass/bin/node-sass</parameter>
         <parameter key="assetic.filter.nodesass.timeout">null</parameter>
         <parameter key="assetic.filter.nodesass.debug">false</parameter>
         <parameter key="assetic.filter.nodesass.no_line_comments">false</parameter>
@@ -14,8 +14,8 @@
         <parameter key="assetic.filter.nodesass.fonts_dir">null</parameter>
         <parameter key="assetic.filter.nodesass.javascripts_dir">null</parameter>
         <parameter key="assetic.filter.nodesass.http_path">null</parameter>
-        <parameter key="assetic.filter.nodesass.http_images_path">null</parameter>
-        <parameter key="assetic.filter.nodesass.http_fonts_path">null</parameter>
+        <parameter key="assetic.filter.nodesass.http_images_path">images</parameter>
+        <parameter key="assetic.filter.nodesass.http_fonts_path">fonts</parameter>
         <parameter key="assetic.filter.nodesass.http_generated_images_path">null</parameter>
         <parameter key="assetic.filter.nodesass.generated_images_path">null</parameter>
         <parameter key="assetic.filter.nodesass.http_javascripts_path">null</parameter>
@@ -24,7 +24,7 @@
         <parameter key="assetic.filter.nodesass.home_env">true</parameter>
         
         <parameter key="assetic.filter.nodesass.class">GollumSF\LibSassBundle\Assetic\Filter\NodeSassFilter</parameter>
-        <parameter key="assetic.filter.nodesass.bin">%assetic.sass.bin%</parameter>
+        <parameter key="assetic.filter.nodesass.bin">%assetic.nodesass.bin%</parameter>
         <parameter key="assetic.filter.nodesass.timeout">240</parameter>
         <parameter key="assetic.filter.nodesass.style">null</parameter>
         <parameter key="assetic.filter.nodesass.load_paths" type="collection" />
@@ -33,11 +33,6 @@
     <services>
         <service id="assetic.filter.nodesass" class="%assetic.filter.nodesass.class%">
             <tag name="assetic.filter" alias="nodesass" />
-<!--             <argument>%assetic.filter.nodesass.bin%</argument> -->
-<!--             <call method="setTimeout"><argument>%assetic.filter.nodesass.timeout%</argument></call> -->
-<!--             <call method="setStyle"><argument>%assetic.filter.nodesass.style%</argument></call> -->
-<!--             <call method="setLoadPaths"><argument>%assetic.filter.nodesass.load_paths%</argument></call> -->
-            
             <argument>%assetic.filter.nodesass.bin%</argument>
             <argument>%assetic.node.bin%</argument>
             <call method="setTimeout"><argument>%assetic.filter.nodesass.timeout%</argument></call>

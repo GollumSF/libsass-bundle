@@ -36,3 +36,24 @@ Add libsabb filter for AsseticBundle into Symfony2
 	]
 }
 </pre>
+
+##Configuration
+
+<pre>
+	
+	assetic:
+		node:
+			bin: ~  # default: /usr/bin/node
+		nodesass:
+			bin: ~  # default: "%kernel.root_dir%/../vendor/gollumsf/libsass/node-sass/bin/node-sass"
+		filters:
+			nodesass:
+				resource: '%kernel.root_dir%/../vendor/gollumsf/libsass/libsass-bundle/GollumSF/LibSassBundle/Resources/config/nodesass.xml'
+				apply_to: "\.scss$"
+				style: ~       # default: expanded
+				images_dir: ~  # default: images
+				fonts_dir:  ~  # default: fonts
+				http_path: ~
+				load_paths: []
+</pre>
+

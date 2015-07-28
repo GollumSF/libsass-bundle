@@ -14,30 +14,35 @@ use Assetic\Util\CssUtils;
  * This class is based on Assetic\Filter\Sass\SassFilter and is slightly modified to work with node-sass instead of Ruby.
  */
 class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInterface {
+
+	const STYLE_NESTED = 'nested';
+	const STYLE_EXPANDED = 'expanded';
+	const STYLE_COMPACT = 'compact';
+	const STYLE_COMPRESSED = 'compressed';
 	
 	private $nodeSassPath;
 	private $nodeBin;
 	
-	// sass options
+	// nodesass options
+	private $style;
+	private $loadPaths = array ();
+	
 	private $unixNewlines;
 	private $debugInfo;
 	private $cacheLocation;
 	private $noCache;
-	
-	// compass options
 	private $force;
-	private $style;
 	private $quiet;
 	private $boring;
 	private $noLineComments;
-	private $imagesDir;
 	private $javascriptsDir;
-	private $fontsDir;
 	
 	// compass configuration file options
-	private $plugins = array ();
-	private $loadPaths = array ();
 	private $httpPath;
+	private $fontsDir;
+	private $imagesDir;
+	
+	private $plugins = array ();
 	private $httpImagesPath;
 	private $httpFontsPath;
 	private $httpGeneratedImagesPath;
@@ -59,10 +64,10 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
     // sass options setters
     public function setUnixNewlines($unixNewlines)
     {
-        $this->unixNewlines = $unixNewlines;
-    }
-
-    public function setDebugInfo($debugInfo)
+		$this->unixNewlines = $unixNewlines;
+	}
+	
+	public function setDebugInfo($debugInfo)
     {
         $this->debugInfo = $debugInfo;
     }
@@ -100,22 +105,20 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
     {
         $this->noLineComments = $noLineComments;
     }
-
-    public function setImagesDir($imagesDir)
-    {
-        $this->imagesDir = $imagesDir;
-    }
-
-    public function setJavascriptsDir($javascriptsDir)
+	
+	public function setImagesDir($imagesDir) {
+		$this->imagesDir = $imagesDir;
+	}
+	
+	public function setJavascriptsDir($javascriptsDir)
     {
         $this->javascriptsDir = $javascriptsDir;
     }
-
-    public function setFontsDir($fontsDir)
-    {
-        $this->fontsDir = $fontsDir;
-    }
-
+	
+	public function setFontsDir($fontsDir) {
+		$this->fontsDir = $fontsDir;
+	}
+	
     // compass configuration file options setters
     public function setPlugins(array $plugins)
     {
@@ -229,11 +232,11 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 		}
 		
 		$content = file_get_contents($tempName);
-
-		$content = str_replace("___COMPASS_HTTP_PATH___", $this->httpPath, $content);
-		$content = str_replace("___COMPASS_IMAGES_DIR___", $this->imagesDir, $content);
-		$content = str_replace("___COMPASS_FONT_DIR___", $this->fontsDir, $content);
-
+		
+		$content = str_replace("___COMPASS_HTTP_PATH___" , $this->httpPath ? rtrim($this->httpPath, '/') ."/" : "", $content);
+		$content = str_replace("___COMPASS_IMAGES_DIR___", $this->httpPath ? rtrim($this->imagesDir, '/')."/" : "", $content);
+		$content = str_replace("___COMPASS_FONT_DIR___"  , $this->fontsDir ? rtrim($this->fontsDir, '/') ."/" : "", $content);
+		
 		@unlink ($tempName);
 		$asset->setContent($content);
 		
@@ -395,10 +398,6 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
         return array();
     }
 	
-// 	const STYLE_NESTED = 'nested';
-// 	const STYLE_EXPANDED = 'expanded';
-// 	const STYLE_COMPACT = 'compact';
-// 	const STYLE_COMPRESSED = 'compressed';
 	
 // 	private $sassPath;
 // 	private $style;

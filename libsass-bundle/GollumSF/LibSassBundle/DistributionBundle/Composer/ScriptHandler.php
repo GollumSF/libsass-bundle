@@ -8,17 +8,18 @@ use Symfony\Component\Filesystem\Filesystem;
 class ScriptHandler {
 	
 	public static function submoduleUpdate(CommandEvent $event) {
-		
-		self::executeCommand("git -C vendor/gollumsf/libsass submodule update --init");
-		
+		self::submoduleUpdate($event);
 	}
 	
 	public static function submoduleInstall(CommandEvent $event) {
-		
-		self::executeCommand("git -C vendor/gollumsf/libsass submodule foreach git reset --hard");
-		
+
 		$oldDir = realpath(getcwd());
-		chdir("vendor/gollumsf/libsass/node-sass");
+		chdir("vendor/gollumsf/libsass");
+		
+		self::executeCommand("git submodule update --init");
+		self::executeCommand("git submodule foreach git reset --hard");
+
+		chdir("node-sass");
 		if (file_exists("node_modules")) {
 			echo "Remove dir node_modules\n";
 			(new Filesystem())->remove("node_modules");

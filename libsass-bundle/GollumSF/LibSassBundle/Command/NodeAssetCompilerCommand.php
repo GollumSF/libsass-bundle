@@ -42,7 +42,7 @@ class NodeAssetCompilerCommand extends ContainerAwareCommand {
 			$includePaths .= " --includePaths $includePath";
 		}
 		
-		$cmd = "$node $compile --port $port --nodeSassPath $nodeSassPath --rootPath $rootPath --outputStyle $outputStyle --bundlePath $bundlePath --http_path $http_path --fonts_dir $fonts_dir --images_dir $images_dir$includePaths";
+		$cmd = "$node $compile --port $port --nodeSassPath $nodeSassPath --rootPath $rootPath --bundlePath $bundlePath".($outputStyle ? " --outputStyle $outputStyle" : "")." --http_path $http_path --fonts_dir $fonts_dir --images_dir $images_dir$includePaths";
 		
 		echo "Start compilation server: $cmd\n";
 		$process = new Process($cmd, null, null, null, 0);

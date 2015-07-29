@@ -25,6 +25,7 @@ console.log ("options: ", options);
 
 var port         = options["port"]         || 8989;
 var replace      = options["replace"]      || "app_dev.php";
+var split        = options["split"]        || "%";
 var outputStyle  = options["outputStyle"]  || "expanded";
 var rootPath     = options["rootPath"]     || "./";
 var bundlePath   = options["bundlePath"]   || "vendor/gollumsf/libsass/libsass-bundle/GollumSF/LibSassBundle";
@@ -41,7 +42,7 @@ var sass = require(nodeSassPath+'/lib/index.js');
 http.createServer(function (req, res) {
 	
 	var assetPath = req.url.split(replace);
-	assetPath = assetPath[assetPath.length-1];
+	assetPath = assetPath[assetPath.length-1].split(split)[0];
 	
 	if (!fs.existsSync(assetPath)) {
 		res.writeHead(404, {"Content-Type": "text/plain"});
@@ -56,6 +57,15 @@ http.createServer(function (req, res) {
 		
 		fs.readFile(assetPath, "utf8", function (err,data) {
 			res.writeHead(200, {"Content-Type": "text/javascript"});
+			res.write(data);
+			res.end();
+		});
+		return
+	}
+	if (assetPath.substr(-3) == '.css') {
+		
+		fs.readFile(assetPath, "utf8", function (err,data) {
+			res.writeHead(200, {"Content-Type": "text/css"});
 			res.write(data);
 			res.end();
 		});

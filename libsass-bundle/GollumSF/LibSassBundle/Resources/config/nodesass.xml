@@ -12,8 +12,8 @@
         <parameter key="assetic.filter.nodesass.debug">false</parameter>
         <parameter key="assetic.filter.nodesass.no_line_comments">false</parameter>
         <parameter key="assetic.filter.nodesass.style">expanded</parameter>
-        <parameter key="assetic.filter.nodesass.images_dir">fonts</parameter>
-        <parameter key="assetic.filter.nodesass.fonts_dir">images</parameter>
+        <parameter key="assetic.filter.nodesass.images_dir">images</parameter>
+        <parameter key="assetic.filter.nodesass.fonts_dir">fonts</parameter>
         <parameter key="assetic.filter.nodesass.javascripts_dir">null</parameter>
         <parameter key="assetic.filter.nodesass.http_path">null</parameter>
         <parameter key="assetic.filter.nodesass.http_images_path">null</parameter>

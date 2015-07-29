@@ -24,6 +24,7 @@ for (var i = 0; i < process.argv.length; i++) {
 console.log ("options: ", options);
 
 var port         = options["port"]         || 8989;
+var replace      = options["replace"]      || "app_dev.php";
 var outputStyle  = options["outputStyle"]  || "expanded";
 var rootPath     = options["rootPath"]     || "./";
 var bundlePath   = options["bundlePath"]   || "vendor/gollumsf/libsass/libsass-bundle/GollumSF/LibSassBundle";
@@ -39,7 +40,8 @@ var sass = require(nodeSassPath+'/lib/index.js');
 
 http.createServer(function (req, res) {
 	
-	var assetPath = req.url;
+	var assetPath = req.url.split(replace);
+	assetPath = assetPath[assetPath.length-1];
 	
 	if (!fs.existsSync(assetPath)) {
 		res.writeHead(404, {"Content-Type": "text/plain"});

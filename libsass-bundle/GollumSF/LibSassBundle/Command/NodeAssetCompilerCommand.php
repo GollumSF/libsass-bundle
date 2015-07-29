@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 
 class NodeAssetCompilerCommand extends ContainerAwareCommand {
@@ -23,7 +23,7 @@ class NodeAssetCompilerCommand extends ContainerAwareCommand {
 	
 	protected function execute(InputInterface $input, OutputInterface $output) {
 		
-		/* @var $kernel Kernel */
+		/* @var $kernel KernelInterface */
 		$kernel       = $this->getContainer ()->get ("kernel");
 		$node         = $this->getContainer ()->getParameter ("assetic.node.bin");
 		$port         = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.port");

@@ -36,6 +36,10 @@ var ___COMPASS_HTTP_PATH___  = options["http_path"]  || null;
 var ___COMPASS_FONTS_DIR___  = options["fonts_dir"]  || null;
 var ___COMPASS_IMAGES_DIR___ = options["images_dir"] || null;
 
+___COMPASS_HTTP_PATH___  = (___COMPASS_HTTP_PATH___ [___COMPASS_HTTP_PATH___.length-1]  == '/') ? ___COMPASS_HTTP_PATH___.substr  (0, ___COMPASS_HTTP_PATH___ .length - 1) : ___COMPASS_HTTP_PATH___ ;
+___COMPASS_FONTS_DIR___  = (___COMPASS_FONTS_DIR___ [___COMPASS_FONTS_DIR___.length-1]  == '/') ? ___COMPASS_FONTS_DIR___.substr  (0, ___COMPASS_FONTS_DIR___ .length - 1) : ___COMPASS_FONTS_DIR___ ;
+___COMPASS_IMAGES_DIR___ = (___COMPASS_IMAGES_DIR___[___COMPASS_IMAGES_DIR___.length-1] == '/') ? ___COMPASS_IMAGES_DIR___.substr (0, ___COMPASS_IMAGES_DIR___.length - 1) : ___COMPASS_IMAGES_DIR___;
+
 var http = require('http');
 var sass = require(nodeSassPath+'/lib/index.js');
 

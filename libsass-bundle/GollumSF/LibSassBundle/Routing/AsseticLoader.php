@@ -29,9 +29,13 @@ class AsseticLoader extends AsseticLoaderBase {
 					
 					$routeName = "_assetic_".$name."_".$i++;
 					$route = $routes->get($routeName);
-					if ($route) {
-						$route->setHost("dev.glowbl.com:8989");
-						$route->setPath($leaf->getSourceRoot()."/".$leaf->getSourcePath());
+					if (
+						$route && 
+						($pos = strpos($leaf->getSourcePath(), '.')) !== false && 
+						in_array(substr($leaf->getSourcePath(), $pos), ['.js', '.css', '.scss'])
+					) {
+						$route->setHost("www.devglowbl.com:8989");
+						$route->setPath($leaf->getSourceRoot()."/".$leaf->getSourcePath()."?".$route->getPath());
 					}
 				}
 			}

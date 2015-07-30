@@ -24,17 +24,22 @@
 	"require" : {
 		"php" : ">=5.3.2"
 	},
+	"extra" : {
+		"branch-alias" : {
+			"dev-master" : "master"
+		}
+	},
 	"autoload" : {
 		"psr-0" : {
 			"GollumSF" : "libsass-bundle"
 		}
 	},
-	"config" : {
-		"bin-dir" : "bin"
+	"scripts" : {
+		"post-install-cmd" : [
+			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleInstall"
+		],
+		"post-update-cmd" : [
+			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleUpdate"
+		]
 	},
-	"extra" : {
-		"branch-alias" : {
-			"dev-master" : "master"
-		}
-	}
 }

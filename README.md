@@ -9,12 +9,6 @@ Add libsabb filter for AsseticBundle into Symfony2
 	"require" : {
 		"gollumsf/libsass" : "1.0.0"
 	},
-	"autoload" : {
-		"psr-0" : {
-			"" : "src/",
-			"GollumSF" : "vendor/gollumsf/libsass/libsass-bundle"
-		}
-	},
 	
 	"repositories" : [{
 			"type" : "package",
@@ -23,7 +17,7 @@ Add libsabb filter for AsseticBundle into Symfony2
 				"version" : "1.0.0",
 				"autoload" : {
 					"psr-0" : {
-						"GollumSF" : "vendor/gollumsf/libsass/libsass-bundle"
+						"GollumSF" : "libsass-bundle"
 					}
 				},
 				"source" : {
@@ -33,7 +27,16 @@ Add libsabb filter for AsseticBundle into Symfony2
 				}
 			}
 		}
-	]
+	],
+	
+	"scripts" : {
+		"post-install-cmd" : [
+			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleInstall"
+		],
+		"post-update-cmd" : [
+			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleUpdate"
+		]
+	}
 }
 </pre>
 

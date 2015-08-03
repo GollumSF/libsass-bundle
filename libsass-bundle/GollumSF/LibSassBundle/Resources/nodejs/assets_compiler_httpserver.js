@@ -23,7 +23,9 @@ for (var i = 0; i < process.argv.length; i++) {
 
 console.log ("options: ", options);
 
-var port         = options["port"]         || 8989;
+var port         = options["port"]         || 7979;
+var portHttps    = options["portHttps"]    || 8989;
+var https        = options["https"]        || false;
 var replace      = options["replace"]      || "app_dev.php";
 var split        = options["split"]        || "%";
 var outputStyle  = options["outputStyle"]  || "expanded";
@@ -31,6 +33,10 @@ var rootPath     = options["rootPath"]     || "./";
 var bundlePath   = options["bundlePath"]   || "vendor/gollumsf/libsass/libsass-bundle/GollumSF/LibSassBundle";
 var includePaths = options["includePaths"] || [];
 var nodeSassPath = options["nodeSassPath"] || __dirname+"/../../../../../node-sass";
+var sslKey       = options["sslKey"]       || 'ssl/server.key.pem';
+var sslCert      = options["sslCert"]      || 'ssl/server.cert.pem';
+
+
 
 var ___COMPASS_HTTP_PATH___  = options["http_path"]  || null;
 var ___COMPASS_FONTS_DIR___  = options["fonts_dir"]  || null;
@@ -41,9 +47,11 @@ ___COMPASS_FONTS_DIR___  = (___COMPASS_FONTS_DIR___ [___COMPASS_FONTS_DIR___.len
 ___COMPASS_IMAGES_DIR___ = (___COMPASS_IMAGES_DIR___[___COMPASS_IMAGES_DIR___.length-1] == '/') ? ___COMPASS_IMAGES_DIR___.substr (0, ___COMPASS_IMAGES_DIR___.length - 1) : ___COMPASS_IMAGES_DIR___;
 
 var http = require('http');
+var https = require('https');
 var sass = require(nodeSassPath+'/lib/index.js');
 
-http.createServer(function (req, res) {
+
+var createServer = function (req, res) {
 	
 	var assetPath = req.url.split(replace);
 	assetPath = assetPath[assetPath.length-1].split(split)[0];
@@ -64,7 +72,7 @@ http.createServer(function (req, res) {
 			res.write(data);
 			res.end();
 		});
-		return
+		return;
 	}
 	if (assetPath.substr(-3) == '.css') {
 		
@@ -73,7 +81,7 @@ http.createServer(function (req, res) {
 			res.write(data);
 			res.end();
 		});
-		return
+		return;
 	}
 	
 	var includeFinal = [
@@ -109,4 +117,12 @@ http.createServer(function (req, res) {
 		res.end();
 	});
 	
-}).listen(port);
+};
+
+if (https) {
+	http .createServer(createServer).listen(port);
+	https.createServer({
+		key: fs.readFileSync(sslKey),
+		cert: fs.readFileSync(sslCert)
+	}, createServer).listen(portHttps);
+}

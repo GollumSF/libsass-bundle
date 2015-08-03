@@ -6,8 +6,15 @@
     <parameters>
         <parameter key="assetic.node.bin">/usr/bin/node</parameter>
         <parameter key="assetic.nodesass.bin">%kernel.root_dir%/../vendor/gollumsf/libsass/node-sass/bin/node-sass</parameter>
+        
+        <parameter key="assetic.nodesass.compiler.usenodeserver">false</parameter>
         <parameter key="assetic.nodesass.compiler.host">127.0.0.1</parameter>
-        <parameter key="assetic.nodesass.compiler.port">8989</parameter>
+        <parameter key="assetic.nodesass.compiler.https">none</parameter>
+        <parameter key="assetic.nodesass.compiler.port">7979</parameter>
+        <parameter key="assetic.nodesass.compiler.portHttps">8989</parameter>
+        <parameter key="assetic.nodesass.compiler.sslKey">ssl/server.key.pem</parameter>
+        <parameter key="assetic.nodesass.compiler.sslCert">ssl/server.cert.pem</parameter>
+        
         <parameter key="assetic.filter.nodesass.timeout">null</parameter>
         <parameter key="assetic.filter.nodesass.debug">false</parameter>
         <parameter key="assetic.filter.nodesass.no_line_comments">false</parameter>

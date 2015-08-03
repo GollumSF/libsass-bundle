@@ -27,6 +27,10 @@ class NodeAssetCompilerCommand extends ContainerAwareCommand {
 		$kernel       = $this->getContainer ()->get ("kernel");
 		$node         = $this->getContainer ()->getParameter ("assetic.node.bin");
 		$port         = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.port");
+		$https        = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.https");
+		$portHttp     = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.portHttps");
+		$sslKey       = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.sslKey");
+		$sslCert      = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.sslCert");
 		$node         = $this->getContainer ()->getParameter ("assetic.node.bin");
 		$outputStyle  = $this->getContainer ()->getParameter ("assetic.filter.nodesass.style");
 		$http_path    = $this->getContainer ()->getParameter ("assetic.filter.nodesass.http_path");
@@ -42,7 +46,22 @@ class NodeAssetCompilerCommand extends ContainerAwareCommand {
 			$includePaths .= " --includePaths $includePath";
 		}
 		
-		$cmd = "$node $compile --port $port --nodeSassPath $nodeSassPath --rootPath $rootPath --bundlePath $bundlePath".($outputStyle ? " --outputStyle $outputStyle" : "")." --http_path $http_path --fonts_dir $fonts_dir --images_dir $images_dir$includePaths";
+		$cmd = "$node $compile 
+			--port $port ".
+			($https ? "--https 1 " : "")."
+			--portHttps $portHttp 
+			--nodeSassPath $nodeSassPath 
+			--rootPath $rootPath 
+			--bundlePath $bundlePath ".
+			($outputStyle ? "--outputStyle $outputStyle" : "")." 
+			--http_path $http_path 
+			--fonts_dir $fonts_dir 
+			--images_dir $images_dir$includePaths
+			--sslKey $sslKey
+			--sslCert $sslCert
+		";
+		
+		$cmd = str_replace (["\n", "\t"], " ", $cmd);
 		
 		echo "Start compilation server: $cmd\n";
 		$process = new Process($cmd, null, null, null, 0);

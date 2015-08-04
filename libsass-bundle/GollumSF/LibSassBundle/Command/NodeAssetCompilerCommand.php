@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpKernel\KernelInterface;
+use GollumSF\LibSassBundle\Routing\AsseticLoader;
 
 
 class NodeAssetCompilerCommand extends ContainerAwareCommand {
@@ -26,8 +27,8 @@ class NodeAssetCompilerCommand extends ContainerAwareCommand {
 		/* @var $kernel KernelInterface */
 		$kernel       = $this->getContainer ()->get ("kernel");
 		$node         = $this->getContainer ()->getParameter ("assetic.node.bin");
-		$port         = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.port");
 		$https        = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.https");
+		$port         = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.port");
 		$portHttp     = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.portHttps");
 		$sslKey       = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.sslKey");
 		$sslCert      = $this->getContainer ()->getParameter ("assetic.nodesass.compiler.sslCert");
@@ -46,10 +47,10 @@ class NodeAssetCompilerCommand extends ContainerAwareCommand {
 			$includePaths .= " --includePaths $includePath";
 		}
 		
-		$cmd = "$node $compile 
-			--port $port ".
-			($https ? "--https 1 " : "")."
-			--portHttps $portHttp 
+		$cmd = "$node $compile ".
+			($port     ? "--port $port "         : "").
+			($portHttp ? "--portHttps $portHttp ": ""). 
+			($https != AsseticLoader::HTTPS_MODE_NONE ? "--https 1 " : "")."
 			--nodeSassPath $nodeSassPath 
 			--rootPath $rootPath 
 			--bundlePath $bundlePath ".

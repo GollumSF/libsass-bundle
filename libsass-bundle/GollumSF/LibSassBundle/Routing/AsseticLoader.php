@@ -76,12 +76,16 @@ class AsseticLoader extends AsseticLoaderBase {
 							($this->https == self::HTTPS_MODE_DETECT && $request->isSecure()) ||
 							$this->https == self::HTTPS_MODE_FULL
 						) {
-							$route->setHost($this->host.":".$this->portHttps);
-							$route->setSchemes("https");
+							$route->setHost($this->host.($this->portHttps ? ":".$this->portHttps : ""));
+							if ($this->portHttps) {
+								$route->setSchemes("https");
+							}
 							$route->setPath($leaf->getSourceRoot()."/".$leaf->getSourcePath()."?".$route->getPath());
 						} else {
-							$route->setHost($this->host.":".$this->port);
-							$route->setSchemes("http");
+							$route->setHost($this->host.":".($this->port ? ":".$this->port : ""));
+							if ($this->port) {
+								$route->setSchemes("http");
+							}
 							$route->setPath($leaf->getSourceRoot()."/".$leaf->getSourcePath()."?".$route->getPath());
 						}
 					}

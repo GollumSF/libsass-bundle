@@ -25,7 +25,7 @@ class GenerateSSLKeyNodeServerCommand extends ContainerAwareCommand {
 		
 		/* @var $kernel KernelInterface */
 		$kernel = $this->getContainer ()->get ("kernel");
-		$path   = $kernel->getRootDir()."/ssl";
+		$path   = $kernel->getRootDir()."/../ssl";
 		
 		if (!file_exists($path)) {
 			@mkdir($path);

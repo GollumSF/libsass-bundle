@@ -48,8 +48,8 @@ class NodeAssetCompilerCommand extends ContainerAwareCommand {
 		}
 		
 		$cmd = "$node $compile ".
-			($port     ? "--port $port "         : "").
-			($portHttp ? "--portHttps $portHttp ": ""). 
+			($port     ? "--port $port " : "").
+			($https != AsseticLoader::HTTPS_MODE_NONE && $portHttp ? "--portHttps $portHttp ": ""). 
 			($https != AsseticLoader::HTTPS_MODE_NONE ? "--https 1 " : "")."
 			--nodeSassPath $nodeSassPath 
 			--rootPath $rootPath 
@@ -57,9 +57,9 @@ class NodeAssetCompilerCommand extends ContainerAwareCommand {
 			($outputStyle ? "--outputStyle $outputStyle" : "")." 
 			--http_path $http_path 
 			--fonts_dir $fonts_dir 
-			--images_dir $images_dir$includePaths
-			--sslKey $sslKey
-			--sslCert $sslCert
+			--images_dir $images_dir$includePaths ".
+			($https != AsseticLoader::HTTPS_MODE_NONE && $sslKey  ? "--sslKey $sslKey "   : "").
+			($https != AsseticLoader::HTTPS_MODE_NONE && $sslCert ? "--sslCert $sslCert " : "")."
 		";
 		
 		$cmd = str_replace (["\n", "\t"], " ", $cmd);

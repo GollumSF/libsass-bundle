@@ -8,7 +8,7 @@ use Symfony\Component\Filesystem\Filesystem;
 class ScriptHandler {
 	
 	public static function submoduleUpdate(CommandEvent $event) {
-		self::submoduleUpdate($event);
+		self::submoduleInstall($event);
 	}
 	
 	public static function submoduleInstall(CommandEvent $event) {

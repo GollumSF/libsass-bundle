@@ -12,7 +12,9 @@ class ScriptHandler {
 	}
 	
 	public static function submoduleInstall(CommandEvent $event) {
-
+		
+		set_time_limit(0);
+		
 		$oldDir = realpath(getcwd());
 		chdir("vendor/gollumsf/libsass");
 		

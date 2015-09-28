@@ -25,7 +25,7 @@ console.log ("options: ", options);
 
 var port         = options["port"]         || 7979;
 var portHttps    = options["portHttps"]    || 8989;
-var https        = options["https"]        || false;
+var useHttps     = options["https"]        || false;
 var replace      = options["replace"]      || "app_dev.php";
 var split        = options["split"]        || "%";
 var outputStyle  = options["outputStyle"]  || "expanded";
@@ -119,8 +119,8 @@ var createServer = function (req, res) {
 	
 };
 
-if (https) {
-	http .createServer(createServer).listen(port);
+http .createServer(createServer).listen(port);
+if (useHttps) {
 	https.createServer({
 		key: fs.readFileSync(sslKey),
 		cert: fs.readFileSync(sslCert)

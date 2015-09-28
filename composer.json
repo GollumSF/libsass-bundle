@@ -18,7 +18,7 @@
 		}
 	],
 	"support" : {
-		"email" : "damien.duboeuf@gmail.com",
+		"email" : "duboeuf.damien@gmail.com",
 		"wiki" : "https://github.com/GollumSF/libsass-bundle/wiki"
 	},
 	"require" : {
@@ -48,11 +48,6 @@
 			"package" : {
 				"name" : "sass/node-sass",
 				"version" : "3.3.3",
-				"autoload" : {
-					"psr-0" : {
-						"GollumSF" : "libsass-bundle"
-					}
-				},
 				"source" : {
 					"url" : "https://github.com/sass/node-sass.git",
 					"type" : "git",

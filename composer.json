@@ -21,7 +21,8 @@
 		"email" : "duboeuf.damien@gmail.com",
 		"wiki" : "https://github.com/GollumSF/libsass-bundle/wiki"
 	},
-	"repositories" : [{
+	"repositories" : [
+		{
 			"type" : "package",
 			"package" : {
 				"name" : "sass/node-sass",
@@ -37,7 +38,7 @@
 	"require" : {
 		"php" : ">=5.3.2",
 		"symfony/framework-bundle": "~2.3",
-		"sass/node-sass" : "3.3.3"
+		"sass/node-sass" : "*"
 	},
 	"require-dev": {
 	},

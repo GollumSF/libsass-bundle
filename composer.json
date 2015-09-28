@@ -35,6 +35,11 @@
 		
 	},
 	"target-dir": "GollumSF/LibSassBundle",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "master"
+        	}
+	},
 	"scripts" : {
 		"post-install-cmd" : [
 			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleInstall"

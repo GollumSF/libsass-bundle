@@ -12,8 +12,6 @@
 	],
 	"homepage" : "https://github.com/GollumSF/libsass-bundle",
 	"license" : "GPLv2",
-	"minimum-stability": "dev",
-	"prefer-stable": true,
 	"authors" : [{
 			"name" : "Damien Duboeuf",
 			"email" : "damien.duboeuf@gmail.com"

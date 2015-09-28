@@ -13,11 +13,12 @@ class ScriptHandler {
 	
 	public static function submoduleInstall(CommandEvent $event) {
 		
-		set_time_limit(0);
+		//set_time_limit(0);
 		
 		$oldDir = realpath(getcwd());
 		chdir("vendor/gollumsf/libsass");
-		
+
+		self::executeCommand("git --version");
 		self::executeCommand("git submodule update --init");
 		self::executeCommand("git submodule foreach git reset --hard");
 

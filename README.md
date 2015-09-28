@@ -9,21 +9,36 @@ Add libsabb filter for AsseticBundle into Symfony2
 	"require" : {
 		"gollumsf/libsass" : "1.0.0"
 	},
-	
-	"repositories" : [{
+	"repositories" : [
+		{
 			"type" : "package",
 			"package" : {
-				"name" : "gollumsf/libsass",
-				"version" : "1.0.0",
-				"autoload" : {
-					"psr-0" : {
-						"GollumSF" : "libsass-bundle"
-					}
-				},
+				"name" : "sass/node-sass",
+				"version" : "3.3.3",
 				"source" : {
-					"url" : "https://github.com/GollumSF/libsass-bundle.git",
+					"url" : "https://github.com/sass/node-sass.git",
 					"type" : "git",
-					"reference" : "master"
+					"reference" : "v3.3.3"
+				},
+				"dist":{
+					"url":"https://github.com/sass/node-sass/archive/v3.3.3.zip",
+					"type":"zip"
+				}
+			}
+		},
+		{
+			"type" : "package",
+			"package" : {
+				"name" : "igosuki/compass-mixins",
+				"version" : "1.0.2",
+				"source" : {
+					"url" : "https://github.com/Igosuki/compass-mixins.git",
+					"type" : "git",
+					"reference" : "1.0.2"
+				},
+				"dist":{
+					"url":"https://github.com/Igosuki/compass-mixins/archive/1.0.2.zip",
+					"type":"zip"
 				}
 			}
 		}
@@ -39,6 +54,18 @@ Add libsabb filter for AsseticBundle into Symfony2
 	}
 }
 </pre>
+
+
+##Register the bundle with your kernel:
+
+```php
+// in AppKernel::registerBundles()
+$bundles = array(
+    // ...
+    new GollumSF\LibSassBundle\GollumSFLibSassBundle(),
+    // ...
+);
+```
 
 ##Configuration
 

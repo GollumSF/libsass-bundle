@@ -24,28 +24,11 @@
 	"require" : {
 		"php" : ">=5.3.2",
 		"symfony/framework-bundle": "~2.3",
-		"sass/node-sass" : "dev-master"
+		"sass/node-sass" : "3.3.3",
+		"igosuki/compass-mixins" : "1.0.2"
 	},
 	"require-dev": {
 	},
-	"repositories" : [
-		{
-			"type" : "package",
-			"package" : {
-				"name" : "sass/node-sass",
-				"version" : "dev-master",
-				"source" : {
-					"url" : "https://github.com/sass/node-sass.git",
-					"type" : "git",
-					"reference" : "v3.3.3"
-				},
-				"dist":{
-					"url":"https://github.com/sass/node-sass/archive/v3.3.3.zip",
-					"type":"zip"
-				}
-			}
-		}
-	],
 	"autoload": {
 		"psr-0": { "GollumSF\\LibSassBundle": "" }
 		
@@ -58,5 +41,39 @@
 		"post-update-cmd" : [
 			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleUpdate"
 		]
-	}
+	},
+	"repositories" : [
+		{
+			"type" : "package",
+			"package" : {
+				"name" : "sass/node-sass",
+				"version" : "3.3.3",
+				"source" : {
+					"url" : "https://github.com/sass/node-sass.git",
+					"type" : "git",
+					"reference" : "v3.3.3"
+				},
+				"dist":{
+					"url":"https://github.com/sass/node-sass/archive/v3.3.3.zip",
+					"type":"zip"
+				}
+			}
+		},
+		{
+			"type" : "package",
+			"package" : {
+				"name" : "igosuki/compass-mixins",
+				"version" : "1.0.2",
+				"source" : {
+					"url" : "https://github.com/Igosuki/compass-mixins.git",
+					"type" : "git",
+					"reference" : "1.0.2"
+				},
+				"dist":{
+					"url":"https://github.com/Igosuki/compass-mixins/archive/1.0.2.zip",
+					"type":"zip"
+				}
+			}
+		}
+	]
 }

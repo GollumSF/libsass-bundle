@@ -1,6 +1,6 @@
 {
 	"name" : "gollumsf/libsass",
-	"type": "symfony-bundle",
+	"type" : "symfony-bundle",
 	"description" : "Add libsabb filter for AsseticBundle",
 	"keywords" : [
 		"libsass",
@@ -23,17 +23,16 @@
 	},
 	"require" : {
 		"php" : ">=5.3.2",
-		"symfony/framework-bundle": "~2.3",
+		"symfony/framework-bundle" : "~2.3",
 		"sass/node-sass" : "3.3.3",
 		"igosuki/compass-mixins" : "1.0.2"
 	},
-	"require-dev": {
+	"autoload" : {
+		"psr-0" : {
+			"GollumSF\\LibSassBundle" : ""
+		}
 	},
-	"autoload": {
-		"psr-0": { "GollumSF\\LibSassBundle": "" }
-		
-	},
-	"target-dir": "GollumSF/LibSassBundle",
+	"target-dir" : "GollumSF/LibSassBundle",
 	"scripts" : {
 		"post-install-cmd" : [
 			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleInstall"
@@ -42,8 +41,7 @@
 			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleUpdate"
 		]
 	},
-	"repositories" : [
-		{
+	"repositories" : [{
 			"type" : "package",
 			"package" : {
 				"name" : "sass/node-sass",
@@ -53,13 +51,12 @@
 					"type" : "git",
 					"reference" : "v3.3.3"
 				},
-				"dist":{
-					"url":"https://github.com/sass/node-sass/archive/v3.3.3.zip",
-					"type":"zip"
+				"dist" : {
+					"url" : "https://github.com/sass/node-sass/archive/v3.3.3.zip",
+					"type" : "zip"
 				}
 			}
-		},
-		{
+		}, {
 			"type" : "package",
 			"package" : {
 				"name" : "igosuki/compass-mixins",
@@ -69,9 +66,9 @@
 					"type" : "git",
 					"reference" : "1.0.2"
 				},
-				"dist":{
-					"url":"https://github.com/Igosuki/compass-mixins/archive/1.0.2.zip",
-					"type":"zip"
+				"dist" : {
+					"url" : "https://github.com/Igosuki/compass-mixins/archive/1.0.2.zip",
+					"type" : "zip"
 				}
 			}
 		}

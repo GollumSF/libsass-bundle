@@ -26,10 +26,10 @@ console.log ("options: ", options);
 var port         = options["port"]         || 7979;
 var portHttps    = options["portHttps"]    || 8989;
 var useHttps     = options["https"]        || false;
-var replace      = options["replace"]      || "app_dev.php";
+var replace      = options["replace"]      || "_dev.php";
 var split        = options["split"]        || "%";
 var outputStyle  = options["outputStyle"]  || "expanded";
-var rootPath     = options["rootPath"]     || "./";
+var rootPath     = options["rootPath"]     || ".";
 var bundlePath   = options["bundlePath"]   || "vendor/gollumsf/libsass/libsass-bundle/GollumSF/LibSassBundle";
 var includePaths = options["includePaths"] || [];
 var nodeSassPath = options["nodeSassPath"] || __dirname+"/../../../../../node-sass";
@@ -85,8 +85,8 @@ var createServer = function (req, res) {
 	}
 	
 	var includeFinal = [
-		bundlePath+"/Resources/compass/include/",
-		bundlePath+"/Resources/compass/compass-mixins/lib/"
+		rootPath+"/../vendor/igosuki/compass-mixins/lib/",
+		bundlePath+"/Resources/scss/",
 	];
 	for (var i = 0; i < includePaths.length; i++) {
 		includeFinal.push(includePaths[i]);

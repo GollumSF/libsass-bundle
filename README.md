@@ -75,10 +75,10 @@ $bundles = array(
 		node:
 			bin: ~  # (optional) default: /usr/bin/node
 		nodesass:
-			bin: ~  # (optional) default: "%kernel.root_dir%/../vendor/gollumsf/libsass/node-sass/bin/node-sass"
+			bin: ~  # (optional) default: "%kernel.root_dir%/../vendor/sass/node-sass/bin/node-sass"
 		filters:
 			nodesass:
-				resource: '%kernel.root_dir%/../vendor/gollumsf/libsass/libsass-bundle/GollumSF/LibSassBundle/Resources/config/nodesass.xml'
+				resource: '%kernel.root_dir%/../vendor/gollumsf/libsass/GollumSF/LibSassBundle/Resources/config/nodesass.xml'
 				apply_to: "\.scss$" # (optional)
 				style: ~            # (optional) default: expanded
 				images_dir: ~       # (optional) default: images

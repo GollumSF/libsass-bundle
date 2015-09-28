@@ -16,13 +16,7 @@ class ScriptHandler {
 		//set_time_limit(0);
 		
 		$oldDir = realpath(getcwd());
-		chdir("vendor/gollumsf/libsass");
-
-		self::executeCommand("git --version");
-		self::executeCommand("git submodule update --init");
-		self::executeCommand("git submodule foreach git reset --hard");
-
-		chdir("node-sass");
+		chdir("vendor/sass/node-sass");
 		if (file_exists("node_modules")) {
 			echo "Remove dir node_modules\n";
 			(new Filesystem())->remove("node_modules");

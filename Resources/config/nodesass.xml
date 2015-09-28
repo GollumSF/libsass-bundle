@@ -5,7 +5,7 @@
 
     <parameters>
         <parameter key="assetic.node.bin">/usr/bin/node</parameter>
-        <parameter key="assetic.nodesass.bin">%kernel.root_dir%/../vendor/gollumsf/libsass/node-sass/bin/node-sass</parameter>
+        <parameter key="assetic.nodesass.bin">%kernel.root_dir%/../vendor/sass/node-sass/bin/node-sass</parameter>
         
         <parameter key="assetic.nodesass.compiler.usenodeserver">false</parameter>
         <parameter key="assetic.nodesass.compiler.host">127.0.0.1</parameter>
@@ -42,6 +42,7 @@
     <services>
         <service id="assetic.filter.nodesass" class="%assetic.filter.nodesass.class%">
             <tag name="assetic.filter" alias="nodesass" />
+            <argument type="service" id="kernel" />
             <argument>%assetic.filter.nodesass.bin%</argument>
             <argument>%assetic.node.bin%</argument>
             <call method="setTimeout"><argument>%assetic.filter.nodesass.timeout%</argument></call>

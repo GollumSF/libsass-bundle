@@ -9,6 +9,7 @@ use Assetic\Factory\AssetFactory;
 use Assetic\Filter\BaseProcessFilter;
 use Assetic\Filter\DependencyExtractorInterface;
 use Assetic\Util\CssUtils;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * This class is based on Assetic\Filter\Sass\SassFilter and is slightly modified to work with node-sass instead of Ruby.
@@ -20,6 +21,10 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 	const STYLE_COMPACT = 'compact';
 	const STYLE_COMPRESSED = 'compressed';
 	
+	/**
+	 * @var KernelInterface
+	 */
+	private $kernel;
 	private $nodeSassPath;
 	private $nodeBin;
 	
@@ -50,7 +55,8 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 	private $httpJavascriptsPath;
 	private $homeEnv = true;
 
-	public function __construct($nodeSassPath = '/usr/bin/node-sass', $nodeBin = null) {
+	public function __construct(KernelInterface $kernel, $nodeSassPath = '/usr/bin/node-sass', $nodeBin = null) {
+		$this->kernel = $kernel;
 		$this->nodeSassPath = $nodeSassPath;
 		$this->nodeBin = $nodeBin;
 		$this->cacheLocation = sys_get_temp_dir ();
@@ -186,8 +192,8 @@ class NodeSassFilter extends BaseProcessFilter implements DependencyExtractorInt
 		if ($root && $path) {
 			$loadPaths [] = realpath ( dirname ( $root . '/' . $path ) );
 		}
-		$loadPaths [] = realpath ( __DIR__ . "/../../Resources/compass/compass-mixins/lib/" );
-		$loadPaths [] = realpath ( __DIR__."/../../Resources/compass/include/");
+		$loadPaths [] = realpath ($this->kernel->getRootDir()."/../vendor/igosuki/compass-mixins/lib/" );
+		$loadPaths [] = realpath (__DIR__."/../../Resources/scss/");
 		
 		$tempDir = realpath(sys_get_temp_dir());
 		

@@ -7,7 +7,7 @@ Add libsabb filter for AsseticBundle into Symfony2
 <pre>
 {
 	"require" : {
-		"gollumsf/libsass" : "1.0.0"
+		"gollumsf/libsass-bundle" : "1.1.0"
 	},
 	"repositories" : [
 		{

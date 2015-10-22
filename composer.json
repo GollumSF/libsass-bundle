@@ -14,11 +14,11 @@
 	"license" : "GPLv2",
 	"authors" : [{
 			"name" : "Damien Duboeuf",
-			"email" : "damien.duboeuf@gmail.com"
+			"email" : "damien.duboeuf@free.fr"
 		}
 	],
 	"support" : {
-		"email" : "duboeuf.damien@gmail.com",
+		"email" : "duboeuf.damien@free.fr",
 		"wiki" : "https://github.com/GollumSF/libsass-bundle/wiki"
 	},
 	"require" : {

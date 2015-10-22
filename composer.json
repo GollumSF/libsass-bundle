@@ -1,5 +1,5 @@
 {
-	"name" : "gollumsf/libsass",
+	"name" : "gollumsf/libsass-bundle",
 	"type" : "symfony-bundle",
 	"description" : "Add libsabb filter for AsseticBundle",
 	"keywords" : [

@@ -8,10 +8,6 @@ use Symfony\Component\Filesystem\Filesystem;
 class ScriptHandler {
 	
 	public static function submoduleUpdate(CommandEvent $event) {
-		self::submoduleInstall($event);
-	}
-	
-	public static function submoduleInstall(CommandEvent $event) {
 		
 		//set_time_limit(0);
 		

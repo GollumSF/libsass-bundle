@@ -24,8 +24,8 @@
 	"require" : {
 		"php" : ">=5.3.2",
 		"symfony/framework-bundle" : ">=2.3",
-		"sass/node-sass" : "3.3.3",
-		"igosuki/compass-mixins" : "1.0.2"
+		"sass/node-sass" : ">=3.3.3",
+		"igosuki/compass-mixins" : ">=1.0.2"
 	},
 	"autoload" : {
 		"psr-0" : {
@@ -45,14 +45,14 @@
 			"type" : "package",
 			"package" : {
 				"name" : "sass/node-sass",
-				"version" : "3.3.3",
+				"version" : "3.8.0",
 				"source" : {
 					"url" : "https://github.com/sass/node-sass.git",
 					"type" : "git",
-					"reference" : "v3.3.3"
+					"reference" : "v3.8.0"
 				},
 				"dist" : {
-					"url" : "https://github.com/sass/node-sass/archive/v3.3.3.zip",
+					"url" : "https://github.com/sass/node-sass/archive/v3.8.0.zip",
 					"type" : "zip"
 				}
 			}

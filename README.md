@@ -14,7 +14,39 @@ Add libsabb filter for AsseticBundle into Symfony2
 		"post-update-cmd" : [
 			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleUpdate"
 		]
-	}
+	},
+	
+	"repositories" : [{
+		"type" : "package",
+		"package" : {
+			"name" : "sass/node-sass",
+			"version" : "3.8.0",
+			"source" : {
+				"url" : "https://github.com/sass/node-sass.git",
+				"type" : "git",
+				"reference" : "v3.8.0"
+			},
+			"dist" : {
+				"url" : "https://github.com/sass/node-sass/archive/v3.8.0.zip",
+				"type" : "zip"
+			}
+		}
+	}, {
+		"type" : "package",
+		"package" : {
+			"name" : "igosuki/compass-mixins",
+			"version" : "1.0.2",
+			"source" : {
+				"url" : "https://github.com/Igosuki/compass-mixins.git",
+				"type" : "git",
+				"reference" : "1.0.2"
+			},
+			"dist" : {
+				"url" : "https://github.com/Igosuki/compass-mixins/archive/1.0.2.zip",
+				"type" : "zip"
+			}
+		}
+	}]
 }
 </pre>
 

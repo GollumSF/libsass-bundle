@@ -11,6 +11,9 @@ Add libsabb filter for AsseticBundle into Symfony2
 	},
 	
 	"scripts" : {
+        "post-install-cmd": [
+            "GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleInstall"
+        ],
 		"post-update-cmd" : [
 			"GollumSF\\LibSassBundle\\DistributionBundle\\Composer\\ScriptHandler::submoduleUpdate"
 		]

@@ -2,12 +2,15 @@
 
 namespace GollumSF\LibSassBundle\DistributionBundle\Composer;
 use Symfony\Component\Process\Process;
-use Composer\Script\CommandEvent;
 use Symfony\Component\Filesystem\Filesystem;
 
 class ScriptHandler {
 	
-	public static function submoduleUpdate(CommandEvent $event) {
+	public static function submoduleInstall() {
+		self::submoduleUpdate();
+	}
+	
+	public static function submoduleUpdate() {
 		
 		//set_time_limit(0);
 		
@@ -32,3 +35,4 @@ class ScriptHandler {
 		}
 	}
 }
+

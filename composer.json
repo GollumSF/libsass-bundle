@@ -23,7 +23,7 @@
 	},
 	"require" : {
 		"php" : ">=5.3.2",
-		"symfony/framework-bundle" : "~2.3",
+		"symfony/framework-bundle" : ">=2.3",
 		"sass/node-sass" : "3.3.3",
 		"igosuki/compass-mixins" : "1.0.2"
 	},
